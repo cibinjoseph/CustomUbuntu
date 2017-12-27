@@ -122,7 +122,9 @@ alias del='trash-put'
 alias iv='vi'
 alias octave='octave --no-gui'
 alias gsync='timesync && grive -p ~/Google_Drive/'
+alias sl='ls'
 
+# for auto ls after cd
 function cd {
       builtin cd "$@" && ls -F
           }
@@ -140,3 +142,6 @@ complete -W "\`grep -oE '^[a-zA-Z0-9_-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9
 timesync() {
   sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 }
+
+# Visit path
+export PATH="/usr/local/visit/bin:$PATH"

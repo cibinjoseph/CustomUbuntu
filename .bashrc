@@ -130,8 +130,18 @@ function cd {
           }
 
 # For bash autocompletion
-shopt -s cdspell
-shopt -s nocaseglob
+# Shell options
+shopt -s autocd # cd to a dir just by typing its name
+PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && ls; __new_wd=$PWD'
+shopt -s cdspell                    # autocorrects cd misspellings
+shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
+shopt -s cmdhist                    # save multi-line commands in history as single line
+shopt -s dotglob                    # include dotfiles in pathname expansion
+shopt -s expand_aliases             # expand aliases
+shopt -s extglob                    # enable extended pattern-matching features
+shopt -s nocaseglob                 # pathname expansion will be treated as case-insensitive
+shopt -s histappend                 # Append History instead of overwriting file.
+shopt -s no_empty_cmd_completion    # No empty completion
 
 # Alias for bash correction program thefuck
 eval $(thefuck --alias jk)

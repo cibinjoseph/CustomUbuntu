@@ -16,7 +16,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=500
+HISTSIZE=1000
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -85,7 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -115,43 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# All code after here added by Cibin
-alias cleawr='clear'
-alias del='trash-put'
-alias iv='vi'
-alias octave='octave --no-gui'
-alias gsync='timesync && grive -p ~/Google_Drive/'
-alias sl='ls'
-
-# for auto ls after cd
-function cd {
-      builtin cd "$@" && ls -F
-          }
-
-# For bash autocompletion
-# Shell options
-shopt -s autocd # cd to a dir just by typing its name
-PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && ls; __new_wd=$PWD'
-shopt -s cdspell                    # autocorrects cd misspellings
-shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
-shopt -s cmdhist                    # save multi-line commands in history as single line
-shopt -s dotglob                    # include dotfiles in pathname expansion
-shopt -s expand_aliases             # expand aliases
-shopt -s extglob                    # enable extended pattern-matching features
-shopt -s nocaseglob                 # pathname expansion will be treated as case-insensitive
-shopt -s histappend                 # Append History instead of overwriting file.
-shopt -s no_empty_cmd_completion    # No empty completion
-
-# Alias for bash correction program thefuck
-eval $(thefuck --alias jk)
-
-# For make completion
-complete -W "\`grep -oE '^[a-zA-Z0-9_-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_-]*$//'\`" make
-
-timesync() {
-  sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
-}
-
-# Visit path
-export PATH="/usr/local/visit/bin:$PATH"

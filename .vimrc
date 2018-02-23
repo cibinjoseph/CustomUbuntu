@@ -35,7 +35,6 @@ filetype plugin indent on    " required
 " source code.
 let fortran_free_source=1
 let fortran_do_enddo=1
-filetype plugin indent on
 syntax on
 
 " Turn on line numbers and row/column numbers.
@@ -95,3 +94,11 @@ endif
 "Syntax highlighting for txt files
 au BufReadPost *.txt set syntax=txt
 
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+          \	if &omnifunc == "" |
+          \		setlocal omnifunc=syntaxcomplete#Complete |
+          \	endif
+endif
+
+let g:ycm_seed_identifiers_with_syntax = 1

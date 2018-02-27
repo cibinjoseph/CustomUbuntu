@@ -155,6 +155,9 @@ export PATH="/usr/local/visit/bin:$PATH"
 source /opt/intel/bin/compilervars.sh intel64
 export OMP_NUM_THREADS=40
 
+# Environment variables and path for Intel VTune Amplifier
+export /opt/intel/vtune_amplifier_2018/amplxe-vars.sh quiet
+
 # Visible Quick bash completion using Ctrl+F
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
 
@@ -172,3 +175,6 @@ source ~/.bash-git-prompt/gitprompt.sh
 export TEC_RS_2009=/opt/tecplot
 export TECRSHOME=/opt/tecplot
 export PATH="/opt/tecplot/bin:$PATH"
+
+# For handling programs with large arrays
+ulimit -s unlimited

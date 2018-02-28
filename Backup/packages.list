@@ -1,0 +1,37 @@
+aptik #Utility to backup and restore PPAs and packages.
+cmake #cross-platform, open-source make system
+gimp #The GNU Image Manipulation Program
+git #fast, scalable, distributed revision control system
+gnuplot #Command-line driven interactive plotting program
+grive #Grive2: an open source Linux client for Google Drive
+htop #interactive processes viewer
+inkscape #vector-based drawing program
+libatk1.0-dev #Development files for the ATK accessibility toolkit
+libavahi-core7 #Avahi's embeddable mDNS/DNS-SD library
+libbonoboui2-dev #Bonobo UI library - development files
+libcairo2-dev #Development files for the Cairo 2D graphics library
+libgnome2-dev #The GNOME library - development files
+libgnomeui-dev #GNOME user interface library - development files
+libgtk2.0-dev #development files for the GTK+ library
+libncurses5-dev #developer's libraries for ncurses
+libncursesw5-dev #developer's libraries for ncursesw
+libx11-dev #X11 client-side library (development headers)
+libxpm-dev #X11 pixmap library (development headers)
+libxt-dev #X11 toolkit intrinsics library (development headers)
+mendeleydesktop #Mendeley Desktop (paper management and sharing software)
+ncurses-term #additional terminal type definitions
+numix-gtk-theme #Numix GTK2 and GTK3 themes
+numix-icon-theme-circle #Numix Circle icons
+octave #GNU Octave language for numerical computations
+paper-icon-theme #Paper Icon Theme
+peek #Simple screen recorder with an easy to use interface
+python-dev #header files and a static library for Python (default)
+python-pip #alternative Python package installer
+python3-dev #header files and a static library for Python (default)
+python3-pip #alternative Python package installer - Python 3 version of the package
+ruby-dev #Header files for compiling extension modules for Ruby (default version)
+terminator #multiple GNOME terminals in one window
+texlive-full #TeX Live: metapackage pulling in all components of TeX Live
+texstudio #LaTeX Editor
+trash-cli #command line trashcan utility
+unity-tweak-tool #configuration tool for the Unity desktop environment

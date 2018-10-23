@@ -127,6 +127,8 @@ alias virgo='ssh ae14d214@virgo.iitm.ac.in'
 alias pycharm='pycharm-community'
 alias au='sudo apt update && sudo apt-get -y upgrade'
 alias gripu='grip --user cibinjoseph'
+alias rm='/bin/safe-rm'
+alias matlab_nogui='matlab -nodesktop -nosplash'
 
 function cd {
   builtin cd "$@" && ls -F
@@ -142,7 +144,7 @@ shopt -s nocaseglob
 eval $(thefuck --alias jk)
 
 # For make completion
-complete -W "\`grep -oE '^[a-zA-Z0-9_-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_-]*$//'\`" make
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
 timesync() {
   sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
@@ -154,9 +156,6 @@ export PATH="/usr/local/visit/bin:$PATH"
 # Environment variables and path for ifort
 source /opt/intel/bin/compilervars.sh intel64
 export OMP_NUM_THREADS=40
-
-# Environment variables and path for Intel VTune Amplifier
-export /opt/intel/vtune_amplifier_2018/amplxe-vars.sh quiet
 
 # Visible Quick bash completion using Ctrl+F
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
@@ -176,5 +175,24 @@ export TEC_RS_2009=/opt/tecplot
 export TECRSHOME=/opt/tecplot
 export PATH="/opt/tecplot/bin:$PATH"
 
-# For handling programs with large arrays
+# For FORTRAN handling programs with large arrays
 ulimit -s unlimited
+
+# ParaView path
+export PATH="/opt/ParaView/bin:$PATH"
+
+# Switch off legacy software flow control for using Ctrl-S in vim
+stty -ixon
+
+# Disable bracketed paste mode to prevent 0~ and ~1 while pasting
+printf "\e[?2004l"
+
+function untar {
+  tar -xvf "$@"
+}
+
+# Disable bash autocompletion for certain unnecesary files
+complete -f -X "*.out" vi
+complete -f -X "*.mod" vi
+complete -f -X "*.o" vi
+complete -f -X "*.so" vi

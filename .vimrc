@@ -14,6 +14,10 @@ Plugin 'VundleVim/Vundle.vim'
 " My Plugins
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'itchyny/lightline.vim'
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'nixon/vim-vmath'
+Plugin 'pseewald/vim-anyfold'
+Plugin 'arecarn/vim-fold-cycle'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -96,9 +100,39 @@ au BufReadPost *.txt set syntax=txt
 
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
-          \	if &omnifunc == "" |
-          \		setlocal omnifunc=syntaxcomplete#Complete |
-          \	endif
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
 endif
 
 let g:ycm_seed_identifiers_with_syntax = 1
+
+"highlight! link DiffText MatchParen
+"
+
+"kymaps for vim-vmath plugin
+vmap <expr> ++ VMATH_YankAndAnalyse()
+nmap        ++ vip++
+
+hi Search ctermbg=LightYellow
+
+"Use Ctrl+S to save
+:map <C-s> <Esc>:w<CR>
+
+"Use code folding
+let anyfold_activate=1
+set foldlevel=3
+
+"Use Tab for fold cycling
+nmap <S-Tab> za
+
+" Use better colours for folds
+highlight Folded ctermfg=Gray ctermbg=NONE
+highlight FoldColumn ctermfg=NONE ctermbg=NONE
+
+" Save folds
+"augroup AutoSaveFolds
+"  autocmd!
+"  autocmd BufWinLeave * mkview
+"  autocmd BufWinEnter * silent loadview
+"augroup END

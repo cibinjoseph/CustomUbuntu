@@ -89,6 +89,45 @@ if has("user_commands")
   command! -bang Qa qa<bang>
 endif
 
+"Syntax highlighting for txt files
+au BufReadPost *.txt set syntax=txt
+
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+endif
+
+let g:ycm_seed_identifiers_with_syntax = 1
+
+"highlight! link DiffText MatchParen
+
+
+"kymaps for vim-vmath plugin
+vmap <expr> ++ VMATH_YankAndAnalyse()
+nmap        ++ vip++
+
+hi Search ctermbg=LightYellow
+
+"Use code folding
+autocmd FileType * AnyFoldActivate
+set foldlevel=3
+
+"Use Tab for fold cycling
+nmap <S-Tab> za
+
+" Use better colours for folds
+highlight Folded ctermfg=Gray ctermbg=NONE
+highlight FoldColumn ctermfg=NONE ctermbg=NONE
+
+" Save folds
+"augroup AutoSaveFolds
+"  autocmd!
+"  autocmd BufWinLeave * mkview
+"  autocmd BufWinEnter * silent loadview
+"augroup END
+"
 " --------------------------------------------------
 " A few keyboard shortcuts for freq functions
 
@@ -102,7 +141,7 @@ endif
 :map <C-d> Vyp$
 
 " Enter for a newline in normal mode
-:map <CR> o<Esc>
+autocmd VimEnter * map <CR> o<Esc>
 
 " Space for a space in normal mode
 :noremap <Space> i<Space><Right><Esc>
@@ -127,41 +166,3 @@ endif
 
 " --------------------------------------------------
 
-"Syntax highlighting for txt files
-au BufReadPost *.txt set syntax=txt
-
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-        \	if &omnifunc == "" |
-        \		setlocal omnifunc=syntaxcomplete#Complete |
-        \	endif
-endif
-
-let g:ycm_seed_identifiers_with_syntax = 1
-
-"highlight! link DiffText MatchParen
-
-
-"kymaps for vim-vmath plugin
-vmap <expr> ++ VMATH_YankAndAnalyse()
-nmap        ++ vip++
-
-hi Search ctermbg=LightYellow
-
-"Use code folding
-let anyfold_activate=1
-set foldlevel=3
-
-"Use Tab for fold cycling
-nmap <S-Tab> za
-
-" Use better colours for folds
-highlight Folded ctermfg=Gray ctermbg=NONE
-highlight FoldColumn ctermfg=NONE ctermbg=NONE
-
-" Save folds
-"augroup AutoSaveFolds
-"  autocmd!
-"  autocmd BufWinLeave * mkview
-"  autocmd BufWinEnter * silent loadview
-"augroup END

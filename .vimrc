@@ -89,11 +89,43 @@ if has("user_commands")
   command! -bang Qa qa<bang>
 endif
 
+" --------------------------------------------------
 " A few keyboard shortcuts for freq functions
+
+" Ctrl-A to select all
 :map <C-a> GVgg
+
+" Ctrl+I to auto-indent all
 :map <C-i> maGVgg='a$
+
+" Ctrl+d to duplicate line
 :map <C-d> Vyp$
+
+" Enter for a newline in normal mode
 :map <CR> o<Esc>
+
+" Space for a space in normal mode
+:noremap <Space> i<Space><Right><Esc>
+
+" Shift+Y to yank whole line
+:map <S-y> <C-v>$y<Esc>
+
+" Ctrl+S to save
+:map <C-s> <Esc>:w<CR>
+
+" Ctrl+W to shift between split windows 
+:map <C-w> <C-W><C-W>  
+
+" Shift+D to duplicate what lies before cursor
+:map <S-d> d$
+
+" Ctrl+Right for w
+:map <C-Right> w
+
+" Ctrl+Right for b
+:map <C-Left> b
+
+" --------------------------------------------------
 
 "Syntax highlighting for txt files
 au BufReadPost *.txt set syntax=txt
@@ -108,16 +140,13 @@ endif
 let g:ycm_seed_identifiers_with_syntax = 1
 
 "highlight! link DiffText MatchParen
-"
+
 
 "kymaps for vim-vmath plugin
 vmap <expr> ++ VMATH_YankAndAnalyse()
 nmap        ++ vip++
 
 hi Search ctermbg=LightYellow
-
-"Use Ctrl+S to save
-:map <C-s> <Esc>:w<CR>
 
 "Use code folding
 let anyfold_activate=1

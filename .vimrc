@@ -131,9 +131,6 @@ highlight FoldColumn ctermfg=NONE ctermbg=NONE
 " --------------------------------------------------
 " A few keyboard shortcuts for freq functions
 
-" Ctrl-A to select all
-:map <C-a> GVgg
-
 " Ctrl+I to auto-indent all
 :map <C-i> maGVgg='a$
 
@@ -164,5 +161,10 @@ autocmd VimEnter * map <CR> o<Esc>
 " Ctrl+Right for b
 :map <C-Left> b
 
+" Map Shift++ to increment numbers
+:map <S-Up> <C-a>
+
+" Map Shift+- to decrement numbers
+:map <S-Down> <C-x>
 " --------------------------------------------------
 

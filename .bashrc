@@ -128,7 +128,9 @@ alias pycharm='pycharm-community'
 alias au='sudo apt update && sudo apt-get -y upgrade'
 alias gripu='grip --user cibinjoseph'
 alias rm='/bin/safe-rm'
-alias matlab_nogui='matlab -nodesktop -nosplash'
+alias matlab_nogui='matlab -nodesktop -nosplash -nojvm'
+alias tec='tec360 -mesa'
+alias python='python3'
 
 function cd {
   builtin cd "$@" && ls -F
@@ -154,8 +156,16 @@ timesync() {
 export PATH="/usr/local/visit/bin:$PATH"
 
 # Environment variables and path for ifort
-source /opt/intel/bin/compilervars.sh intel64
+source /opt/intel/compilers_and_libraries_2017/linux/bin/compilervars.sh intel64
+#source /opt/intel/parallel_studio_xe_2019/bin/psxevars.sh intel64
+alias ifort19='/opt/intel/parallel_studio_xe_2019/compilers_and_libraries_2019/linux/bin/intel64/ifort'
 export OMP_NUM_THREADS=40
+
+# Environment variables and path for Intel VTune Amp
+source  /opt/intel/vtune_amplifier_2019/amplxe-vars.sh quiet
+
+# Environment variables and path for Intel Advisor
+source /opt/intel/advisor_2019/advixe-vars.sh quiet
 
 # Visible Quick bash completion using Ctrl+F
 [[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
@@ -171,9 +181,9 @@ export GIT_PROMPT_ONLY_IN_REPO=1
 source ~/.bash-git-prompt/gitprompt.sh
 
 # Tecplot path
-export TEC_RS_2009=/opt/tecplot
-export TECRSHOME=/opt/tecplot
-export PATH="/opt/tecplot/bin:$PATH"
+export TEC_RS_2009=/opt/Tecplot
+export TECRSHOME=/opt/Tecplot
+export PATH="/opt/Tecplot/bin:$PATH"
 
 # For FORTRAN handling programs with large arrays
 ulimit -s unlimited
@@ -192,7 +202,22 @@ function untar {
 }
 
 # Disable bash autocompletion for certain unnecesary files
-complete -f -X "*.out" vi
-complete -f -X "*.mod" vi
-complete -f -X "*.o" vi
-complete -f -X "*.so" vi
+complete -f -X '*.@(mod|obj|aux|out|pdf|png|jpg|jpeg|gif|eps|dvi|pdf|ps|svg|nc)' -o plusdirs vim
+complete -f -X '*.@(mod|obj|aux|out|pdf|png|jpg|jpeg|gif|eps|dvi|pdf|ps|svg|nc)' -o plusdirs vi
+
+# Key bindings, up/down arrow searches through history
+#"\e[A": history-search-backward
+#"\e[B": history-search-forward
+#"\eOA": history-search-backward
+#"\eOB": history-search-forward
+
+alias findNreplace="bash ~/WorkInProgress/findNreplace/findNreplace.sh"
+
+# JAVA home path
+export PATH="/usr/lib/jvm/default-java/bin:$PATH"
+
+# Andrid Studio path
+export PATH="/opt/android-studio/bin:$PATH"
+
+# AVL path
+export PATH="/opt/Avl:$PATH"

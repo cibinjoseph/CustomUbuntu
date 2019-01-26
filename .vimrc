@@ -30,7 +30,7 @@ filetype plugin indent on    " required
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
+
 " see :h vundle for more details or wiki for FAQ
 " ======= For Vundle plugin ========
 
@@ -166,5 +166,12 @@ autocmd VimEnter * map <CR> o<Esc>
 
 " Map Shift+- to decrement numbers
 :map <S-Down> <C-x>
+
+" Map F1 to clear search highlighting
+:nnoremap <S-Q> :noh<CR>
+
+" Map F2 to run scripts
+autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python' shellescape(@%, 1)<cr>
+autocmd FileType matlab nnoremap <buffer> <F2> :exec '!clear; octave' shellescape(@%, 1)<cr>
 " --------------------------------------------------
 

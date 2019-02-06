@@ -135,7 +135,7 @@ highlight FoldColumn ctermfg=NONE ctermbg=NONE
 " Ctrl+I to auto-indent all
 :map <C-i> maGVgg='a$
 
-" Ctrl+I to auto-indent displayed section for larger files
+" Tab to auto-indent displayed section for larger files
 :map <Tab> maHVL='a$
 
 " Ctrl+d to duplicate line

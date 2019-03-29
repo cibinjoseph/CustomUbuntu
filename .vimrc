@@ -174,6 +174,9 @@ autocmd VimEnter * map <CR> o<Esc>
 " Map F1 to clear search highlighting
 :nnoremap <S-Q> :noh<CR>
 
+" map s to replace text with last copied
+:noremap S "_d"0P
+
 " Map F2 to run scripts
 autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python' shellescape(@%, 1)<cr>
 autocmd FileType matlab nnoremap <buffer> <F2> :exec '!clear; octave' shellescape(@%, 1)<cr>

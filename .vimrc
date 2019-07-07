@@ -37,7 +37,15 @@ filetype plugin indent on    " required
 
 " Ensure correct syntax highlighting and auto-indentation for Fortran free-form
 " source code.
-let fortran_free_source=1
+let s:extfname = expand("%:e")
+if s:extfname ==? "f"
+  let fortran_fixed_source=1
+  unlet! fortran_free_source
+else
+  let fortran_free_source=1
+  unlet! fortran_fixed_source
+endif
+"let fortran_free_source=1
 let fortran_do_enddo=1
 syntax on
 
@@ -88,9 +96,6 @@ if has("user_commands")
   command! -bang QA qa<bang>
   command! -bang Qa qa<bang>
 endif
-
-"Syntax highlighting for txt files
-au BufReadPost *.txt set syntax=txt
 
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -153,9 +158,6 @@ autocmd VimEnter * map <CR> o<Esc>
 " Ctrl+S to save
 :map <C-s> <Esc>:w<CR>
 
-" Ctrl+W to shift between split windows 
-":map <C-w> <C-W><C-W>  
-
 " Shift+D to duplicate what lies before cursor
 :map <S-d> d$
 
@@ -171,7 +173,7 @@ autocmd VimEnter * map <CR> o<Esc>
 " Map Shift+- to decrement numbers
 :map <S-Down> <C-x>
 
-" Map F1 to clear search highlighting
+" Map Shift+Q to clear search highlighting
 :nnoremap <S-Q> :noh<CR>
 
 " map s to replace text with last copied

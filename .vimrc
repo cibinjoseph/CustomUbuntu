@@ -18,6 +18,8 @@ Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'nixon/vim-vmath'
 Plugin 'pseewald/vim-anyfold'
 Plugin 'arecarn/vim-fold-cycle'
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -180,7 +182,27 @@ autocmd VimEnter * map <CR> o<Esc>
 :noremap S "_d"0P
 
 " Map F2 to run scripts
-autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python' shellescape(@%, 1)<cr>
+autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python3' shellescape(@%, 1)<cr>
 autocmd FileType matlab nnoremap <buffer> <F2> :exec '!clear; octave' shellescape(@%, 1)<cr>
 " --------------------------------------------------
 
+" Template for fortran files
+if has ("autocmd")
+  augroup templates
+    autocmd bufNewFile *.f90 0r ~/.vim/templates/skeleton.f90
+  augroup END
+endif
+
+" For formatting indents in continuation lines
+set cino+=(0
+
+" Settings for python
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ textwidth=79
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
+    \ encoding=utf-8

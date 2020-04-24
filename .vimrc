@@ -14,10 +14,15 @@ Plugin 'VundleVim/Vundle.vim'
 " My Plugins
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'itchyny/lightline.vim'
-Plugin 'dhruvasagar/vim-table-mode'
-Plugin 'nixon/vim-vmath'
+" Plugin 'dhruvasagar/vim-table-mode'
+" Plugin 'nixon/vim-vmath'
 Plugin 'pseewald/vim-anyfold'
 Plugin 'arecarn/vim-fold-cycle'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'raimondi/delimitmate'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -30,7 +35,7 @@ filetype plugin indent on    " required
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-
+"
 " see :h vundle for more details or wiki for FAQ
 " ======= For Vundle plugin ========
 
@@ -90,7 +95,7 @@ if has("user_commands")
 endif
 
 "Syntax highlighting for txt files
-au BufReadPost *.txt set syntax=txt
+"au BufReadPost *.txt set syntax=txt
 
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -132,11 +137,16 @@ highlight FoldColumn ctermfg=NONE ctermbg=NONE
 " --------------------------------------------------
 " A few keyboard shortcuts for freq functions
 
-" Ctrl+I to auto-indent all
-:map <C-i> maGVgg='a$
+" Ctrl-A to select all
+:map <C-a> GVgg
 
-" Tab to auto-indent displayed section for larger files
-:map <Tab> maHVL='a$
+if !(&ft=='py')
+  " Ctrl+I to auto-indent all
+  :map <C-i> maGVgg='a$
+
+  " Tab to auto-indent visible part
+  :map <Tab> ma<S-h><S-v><S-l>='a$
+endif
 
 " Ctrl+d to duplicate line
 :map <C-d> Vyp$
@@ -149,12 +159,6 @@ autocmd VimEnter * map <CR> o<Esc>
 
 " Shift+Y to yank whole line
 :map <S-y> <C-v>$y<Esc>
-
-" Ctrl+S to save
-:map <C-s> <Esc>:w<CR>
-
-" Ctrl+W to shift between split windows 
-":map <C-w> <C-W><C-W>  
 
 " Shift+D to duplicate what lies before cursor
 :map <S-d> d$
@@ -171,11 +175,22 @@ autocmd VimEnter * map <CR> o<Esc>
 " Map Shift+- to decrement numbers
 :map <S-Down> <C-x>
 
-" Map F1 to clear search highlighting
+" Map Shift+Q to clear search highlighting
 :nnoremap <S-Q> :noh<CR>
 
 " Map F2 to run scripts
 autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python' shellescape(@%, 1)<cr>
 autocmd FileType matlab nnoremap <buffer> <F2> :exec '!clear; octave' shellescape(@%, 1)<cr>
 " --------------------------------------------------
+" Python environment
+au BufNewFile,BufRead *.py
+      \ set tabstop=4
+      \ softtabstop=4
+      \ shiftwidth=4
+      \ textwidth=79
+      \ expandtab
+      \ autoindent
+      \ fileformat=unix
+"au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/
+let python_highlight_all = 1
 

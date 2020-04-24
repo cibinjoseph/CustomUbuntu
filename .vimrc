@@ -14,12 +14,16 @@ Plugin 'VundleVim/Vundle.vim'
 " My Plugins
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'itchyny/lightline.vim'
-Plugin 'dhruvasagar/vim-table-mode'
-Plugin 'nixon/vim-vmath'
+" Plugin 'dhruvasagar/vim-table-mode'
+" Plugin 'nixon/vim-vmath'
 Plugin 'pseewald/vim-anyfold'
 Plugin 'arecarn/vim-fold-cycle'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'raimondi/delimitmate'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -139,11 +143,16 @@ highlight FoldColumn ctermfg=NONE ctermbg=NONE
 " --------------------------------------------------
 " A few keyboard shortcuts for freq functions
 
-" Ctrl+I to auto-indent all
-:map <C-i> maGVgg='a$
+" Ctrl-A to select all
+:map <C-a> GVgg
 
-" Tab to auto-indent displayed section for larger files
-:map <Tab> maHVL='a$
+if !(&ft=='py')
+  " Ctrl+I to auto-indent all
+  :map <C-i> maGVgg='a$
+
+  " Tab to auto-indent visible part
+  :map <Tab> ma<S-h><S-v><S-l>='a$
+endif
 
 " Ctrl+d to duplicate line
 :map <C-d> Vyp$
@@ -156,9 +165,6 @@ autocmd VimEnter * map <CR> o<Esc>
 
 " Shift+Y to yank whole line
 :map <S-y> <C-v>$y<Esc>
-
-" Ctrl+S to save
-:map <C-s> <Esc>:w<CR>
 
 " Shift+D to duplicate what lies before cursor
 :map <S-d> d$
@@ -178,31 +184,19 @@ autocmd VimEnter * map <CR> o<Esc>
 " Map Shift+Q to clear search highlighting
 :nnoremap <S-Q> :noh<CR>
 
-" map s to replace text with last copied
-:noremap S "_d"0P
-
 " Map F2 to run scripts
-autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python3' shellescape(@%, 1)<cr>
+autocmd FileType python nnoremap <buffer> <F2> :exec '!clear; python' shellescape(@%, 1)<cr>
 autocmd FileType matlab nnoremap <buffer> <F2> :exec '!clear; octave' shellescape(@%, 1)<cr>
 " --------------------------------------------------
-
-" Template for fortran files
-if has ("autocmd")
-  augroup templates
-    autocmd bufNewFile *.f90 0r ~/.vim/templates/skeleton.f90
-  augroup END
-endif
-
-" For formatting indents in continuation lines
-set cino+=(0
-
-" Settings for python
+" Python environment
 au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ textwidth=79
-    \ expandtab
-    \ autoindent
-    \ fileformat=unix
-    \ encoding=utf-8
+      \ set tabstop=4
+      \ softtabstop=4
+      \ shiftwidth=4
+      \ textwidth=79
+      \ expandtab
+      \ autoindent
+      \ fileformat=unix
+"au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/
+let python_highlight_all = 1
+

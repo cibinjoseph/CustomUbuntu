@@ -4,8 +4,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-  *) return;;
+    *i*) ;;
+      *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -16,7 +16,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=500
+HISTSIZE=1000
 HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
@@ -32,60 +32,60 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm-color|*-256color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-  xterm*|rxvt*)
+xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-  *)
+*)
     ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -96,13 +96,16 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Source intel setvars script before changing cd command
+source /opt/intel/oneapi/setvars.sh &> /dev/null
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -116,144 +119,27 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# All code after here added by Cibin
-alias cleawr='clear'
-alias claer='clear'
-alias del='trash-put'
-alias iv='vi'
-alias sl='ls'
-alias octave='octave --no-gui'
-alias gsync='timesync && grive -P -p ~/Google_Drive/'
-alias rclone-push-dry='timesync && rclone sync -P --drive-skip-gdocs --dry-run /home/cibin/Google_Drive remote:'
-alias rclone-push='timesync && rclone sync -P --drive-skip-gdocs /home/cibin/Google_Drive remote:'
-alias rclone-pull-dry='timesync && rclone sync -P --drive-skip-gdocs --dry-run remote: /home/cibin/Google_Drive'
-alias rclone-pull='timesync && rclone sync -P --drive-skip-gdocs remote: /home/cibin/Google_Drive'
-#alias gsync='gsync-pull && gsync-push'
-alias virgo='ssh ae14d214@virgo.iitm.ac.in'
-alias au='sudo apt update && sudo apt-get -y upgrade'
-alias gripu='grip --user cibinjoseph'
-alias rm='/bin/safe-rm'
-alias matlab_nogui='matlab -nodesktop -nosplash -nojvm'
-alias tecplot='tec360'
-alias mkae='make'
-alias toclipboard='xsel -ib'
-alias rotcfd='/opt/RotCFD/bin/RotCFD'
+# Aliases in .bash_aliases
+# PATH variables in .profile
 
-function cd {
-  builtin cd "$@" && ls -F
-}
-
-LS_COLORS='*.f90=00;36:*.f=00;36:ex=00;32'
+# Custom for bash
+# bash-git-prompt
+export GIT_PROMPT_ONLY_IN_REPO=1
+export GIT_PROMPT_THEME=Solarized_Ubuntu
+source ~/.bash-git-prompt/gitprompt.sh
 
 # For bash autocompletion
 shopt -s cdspell
 shopt -s nocaseglob
-
-# Alias for bash correction program thefuck
-eval $(thefuck --alias jk)
+bind 'set completion-ignore-case on'
 
 # For make completion
-complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
-complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" mkae
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+#"
 
-timesync() {
-  sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
-}
+# Environment variables and path for Intel Parallel Studio
+# source /home/cibin/intel/parallel_studio_xe_2019/psxevars.sh > /dev/null
+# source /home/cibin/intel/mkl/bin/mklvars.sh intel64
 
-# Command for clearing additional files generated by texstudio
-texclear() {
-  echo 'Clearing files:'
-  ls *.aux *.log *.nav *.out *.snm *.synctex.gz *.toc 2>/dev/null
-  trash-put *.aux *.log *.nav *.out *.snm *.synctex.gz *.toc 2>/dev/null
-}
-
-# Command for swapping files
-fileswap() {
-    local TMPFILE=tmp.$$
-    mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
-}
-
-# Visit path
-export PATH="/usr/local/visit/bin:$PATH"
-
-# Environment variables and path for Intel Fortran 17
-#source /opt/intel/compilers_and_libraries_2017/linux/bin/compilervars.sh intel64
-#source /opt/intel/compilers_and_libraries_2017/linux/mpi/intel64/bin/mpivars.sh quiet
-
-# Environment variables and path for Intel Fortran 18
-source /opt/intel/compilers_and_libraries_2018/linux/bin/compilervars.sh intel64
-source /opt/intel/parallel_studio_xe_2018/bin/psxevars.sh
-
-# Environment variables and path for Intel Fortran 19
-#source /opt/intel/parallel_studio_xe_2019/bin/psxevars.sh intel64  # For all variables of all products
-#source /opt/intel/compilers_and_libraries_2019/linux/bin/compilervars.sh intel64 
-#source /opt/intel/compilers_and_libraries_2019/linux/mpi/intel64/bin/mpivars.sh quiet
-#source  /opt/intel/vtune_amplifier_2019/amplxe-vars.sh quiet
-#source /opt/intel/advisor_2019/advixe-vars.sh quiet
-#alias ifort19='/opt/intel/parallel_studio_xe_2019/compilers_and_libraries_2019/linux/bin/intel64/ifort'
-
-
-export OMP_NUM_THREADS=40
-
-# Visible Quick bash completion using Ctrl+F
-[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"
-
-# path for VisIt module in python
-export PYTHONPATH=/usr/local/visit/current/linux-x86_64/lib/site-packages
-
-# path to basic heli programs
-export PATH="~/Google_Drive/Programs_Copy/Heli/BasicPrograms:$PATH"
-
-# bash git prompt
-export GIT_PROMPT_ONLY_IN_REPO=1
-source ~/.bash-git-prompt/gitprompt.sh
-
-# Tecplot 2018 path
-export TEC_RS_2018=/usr/local/tecplot/360ex_2018r2
-export TECRSHOME=/usr/local/tecplot/360ex_2018r2
-export PATH="/usr/local/tecplot/360ex_2018r2/bin:$PATH"
-
-# For FORTRAN handling programs with large arrays
-ulimit -s unlimited
-
-# ParaView path
-export PATH="/opt/ParaView/bin:$PATH"
-
-# Switch off legacy software flow control for using Ctrl-S in vim
-stty -ixon
-
-# Disable bracketed paste mode to prevent 0~ and ~1 while pasting
-printf "\e[?2004l"
-
-function untar {
-  tar -xvf "$@"
-}
-
-# Disable bash autocompletion for certain unnecesary files
-complete -f -X '*.@(mod|obj|aux|out|pdf|png|jpg|jpeg|gif|eps|dvi|pdf|ps|svg|nc)' -o plusdirs vim
-complete -f -X '*.@(mod|obj|aux|out|pdf|png|jpg|jpeg|gif|eps|dvi|pdf|ps|svg|nc)' -o plusdirs vi
-
-# Key bindings, up/down arrow searches through history
-#"\e[A": history-search-backward
-#"\e[B": history-search-forward
-#"\eOA": history-search-backward
-#"\eOB": history-search-forward
-
-# JAVA home path
-export PATH="/usr/lib/jvm/default-java/bin:$PATH"
-
-# Android Studio path
-export PATH="/opt/android-studio/bin:$PATH"
-
-# AVL path
-export PATH="/opt/Avl:$PATH"
-
-# OpenVSP path
-export PATH="/opt/OpenVSP-3.18.0-Linux:$PATH"
-alias openvsp='vsp'
-
-# MPICH
-#export PATH="/home/cibin/mpich-install/bin:$PATH"
-
-# PyCharm
-export PATH="/opt/pycharm-community-2019.3.3/bin:$PATH"
+# Disable annoying Ctrl + S stoppage
+stty stop ""

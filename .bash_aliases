@@ -11,8 +11,8 @@ alias rclone-pull-dry='timesync && rclone copy -u -L -P --drive-skip-gdocs --dry
 alias rclone-push='timesync && rclone copy -u -L -P --drive-skip-gdocs /home/cibin/Google_Drive GoogleDrive:'
 alias rclone-push-sync='timesync && rclone sync -u -L -P --drive-skip-gdocs /home/cibin/Google_Drive GoogleDrive:'
 alias rclone-push-dry='timesync && rclone copy -u -L -P --drive-skip-gdocs --dry-run /home/cibin/Google_Drive GoogleDrive:'
-alias rclone-bisync='timesync && rclone bisync -L -P --drive-skip-gdocs /home/cibin/Google_Drive GoogleDrive:'
-alias rclone-bisync-dry='timesync && rclone bisync -L -P --drive-skip-gdocs --dry-run /home/cibin/Google_Drive GoogleDrive:'
+alias rclone-bisync='timesync && rclone bisync --drive-skip-gdocs /home/cibin/Google_Drive GoogleDrive:'
+alias rclone-bisync-dry='timesync && rclone bisync --drive-skip-gdocs --dry-run /home/cibin/Google_Drive GoogleDrive:'
 alias gsync='rclone-bisync'
 alias gsync-dry='rclone-bisync-dry'
 alias sl='ls'
@@ -25,6 +25,7 @@ alias gripu='grip --user=cibinjoseph'
 alias meld='flatpak run org.gnome.meld'
 alias mendeley='/opt/mendeley-reference-manager.AppImage'
 alias dc="cd"
+alias julia-project="julia --project=."
 
 
 # Git aliases
@@ -72,3 +73,6 @@ function untar {
 function labsync {
   rsync -rvRP lab:$(readlink -f $1) /
 }
+
+# Copy pwd from a terminal
+alias c="pwd | xclip -selection clipboard"

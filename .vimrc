@@ -20,7 +20,7 @@ Plugin 'pseewald/vim-anyfold'
 Plugin 'arecarn/vim-fold-cycle'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-python/python-syntax'
 Plugin 'Vimjas/vim-python-pep8-indent'
@@ -28,7 +28,6 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 " Plugin 'rsmenon/vim-mathematica'
 Plugin 'tomtom/tcomment_vim'
 " Plugin 'python-mode/python-mode'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'rickhowe/diffchar.vim'
 " Plugin 'mattn/emmet-vim'
 Plugin 'JuliaEditorSupport/julia-vim'
@@ -65,12 +64,13 @@ endif
 
 if has("autocmd")
   au BufNewFile,BufRead *.jl set filetype=julia
+  au BufNewFile,BufRead *.mem set filetype=julia
 endif
 
 " Turn on line numbers and row/column numbers.
 set nu
 set ruler
-set colorcolumn=80
+" set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Make vim echo commands as they are being entered.
@@ -286,3 +286,6 @@ let g:ycm_language_server = [
 
 " Disable auto-commenting of following line
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+
+" ALE completion
+let g:ale_completion_enabled = 1
